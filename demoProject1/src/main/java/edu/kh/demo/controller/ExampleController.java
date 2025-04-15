@@ -2,10 +2,16 @@ package edu.kh.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller // 요청/응답 제어 역할 명시 + Bean 등록
+//@RequestMapping("todo")
 public class ExampleController {
 
+	// 요청주소
+	// /todo/test/insert,   /todo/test/update,   /todo/delete
+	
+	
 	/* 1) @RequestMapping("주소")
 	 * 
 	 * 2) @GetMapping("주소")     : Get(조회) 방식 요청 매핑
@@ -37,6 +43,7 @@ public class ExampleController {
 		// 접미사 : .html 
 		return"example";
 		// classpath:/templates/example.html
+		// src/main/resources/templates/example.html
 	}
 	
 }
