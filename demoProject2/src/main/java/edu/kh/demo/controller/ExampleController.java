@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.kh.demo.model.dto.Student;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,8 +51,36 @@ public class ExampleController {
 
 		model.addAttribute("fruitList", fruitList);
 		
+		// DTO 객체 Model을 이용해서 html로 전달
+		Student std = new Student();
+		std.setStudentNo("12345");
+		std.setName("홍길동");
+		std.setAge(22);
+		
+		model.addAttribute("std",std);
+		
+		// List<Student> 객체 Model을 이용해서 html로 전달
+		List<Student> stdList = new ArrayList<>();
+		
+		stdList.add(new Student("11111","김일번",20));
+		stdList.add(new Student("22222","최이번",23));
+		stdList.add(new Student("33333","홍삼번",23));
+
+		model.addAttribute("stdList",stdList);
+		
+		
 		// src/main/resources/templates/example/ex1.html 로 forward
 		return "example/ex1";
+		
+	}
+
+	@PostMapping("ex2")   // /example/ex2 Post 방식 요청 매핑
+	public String ex2(Model model) {
+		
+		model.addAttribute("str", "<h1> 테스트 중 &times; </h1>");
+		
+		
+		return "example/ex2";
 		
 	}
 	
