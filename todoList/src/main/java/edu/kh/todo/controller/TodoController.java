@@ -28,7 +28,7 @@ public class TodoController {
 		
 		// RedirectAttributes : 리다이렉트 시 값을 1회성으로 전달하는 객체
 		// RedirectAttributes.addFlashAttribute("key",value) 형식으로 세팅.
-		// -> request scope -> session scope 로 잠시 변환
+		// -> request scope -> session scope로 잠시 변환
 		
 		// 응답 전: request scope
 		// redirect : session scope 로 이동 -> 사용
