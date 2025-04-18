@@ -23,9 +23,9 @@ import edu.kh.todo.model.mapper.TodoMapper;
 @Service // 비즈니스 로직(데이터가공, 트랜잭션 처리 등) 역할 명시 + Bean 등록
 public class TodoServiceImpl implements TodoService {
 
-	@Autowired  // TodoDAO와 같은 타입/상속관계 Bean 의존성 주입(DI)
+	@Autowired // TodoDAO와 같은 타입/상속관계 Bean 의존성 주입(DI)
 	private TodoDAO dao;
-	
+
 	@Autowired
 	private TodoMapper mapper;
 
@@ -35,25 +35,25 @@ public class TodoServiceImpl implements TodoService {
 		// 데이터 가공
 		// 트랜잭션 처리
 		// 커넥션 반납
-			
+
 		return dao.testTitle();
 	}
 
 	@Override
 	public Map<String, Object> selectAll() {
-		
+
 		// 1. 할 일 목록 조회
 		List<Todo> todoList = mapper.selectAll();
-		
+
 		// 2. 완료된 할 일 개수 조회
 		int completeCount = mapper.getCompleteCount();
-		
+
 		// 3. 위 두개 결과값을 Map으로 묶어서 반환
 		Map<String, Object> map = new HashMap<>();
-		
+
 		map.put("todoList", todoList);
 		map.put("completeCount", completeCount);
-		
+
 		return map;
 	}
 
@@ -63,11 +63,10 @@ public class TodoServiceImpl implements TodoService {
 		// 마이바티스에서 SQL에 전달할 수 있는 파라미터 개수는 오직 1개!
 		// -> TodoTitle, todoContent 여러 개인 파라미터를 전달하려면
 		// Todo DTO로 묶어서 전달하면 된다.
-		
+
 		Todo todo = new Todo();
 		todo.setTodoTitle(todoTitle);
 		todo.setTodoContent(todoContent);
-		
 
 		return mapper.addTodo(todo);
 	}
@@ -75,5 +74,15 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public Todo todoDetail(int todoNo) {
 		return mapper.todoDetail(todoNo);
+	}
+
+	@Override
+	public int changeComplete(Todo todo) {
+		return mapper.changeComplete(todo);
+	}
+
+	@Override
+	public int todoUpdate(Todo todo) {
+		return mapper.todoUpdate(todo);
 	}
 }
