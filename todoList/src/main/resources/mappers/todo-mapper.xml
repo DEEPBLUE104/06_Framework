@@ -107,4 +107,9 @@
 		WHERE TODO_NO = #{todoNo}
 	</update>
 	
+	<delete id="todoDelete" parameterType="_int">
+		DELETE FROM TB_TODO
+		WHERE TODO_NO = #{todoNo}
+	</delete>
+	
 </mapper>
