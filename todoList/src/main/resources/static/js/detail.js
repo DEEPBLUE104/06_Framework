@@ -54,3 +54,4 @@ deleteBtn.addEventListener("click", (e) => {
   location.href=`/todo/delete?todoNo=${todoNo}`;
 
 });
+
