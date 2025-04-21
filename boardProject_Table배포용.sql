@@ -53,6 +53,13 @@ VALUES(SEQ_MEMBER_NO.NEXTVAL,
 COMMIT;
 
 -- 25.04.21일 수행
+
+SELECT * FROM "MEMBER";
+
+-- 암호화된 비밀번호(평문 : pass01!) 업데이트
+UPDATE "MEMBER" SET
+MEMBER_PW = '$2a$10$Wm5SNJ5WhqKdCE5O1T6zGe.RpBDt7OerpxUYYKyqmWheiaXczOUEy'
+WHERE MEMBER_NO = 1;
 -----------------------------------------
 
 /* 이메일, 인증키 저장 테이블 생성 */
@@ -216,7 +223,7 @@ ALTER TABLE "MEMBER" ADD CONSTRAINT "PK_MEMBER" PRIMARY KEY (
 
 ALTER TABLE "UPLOAD_FILE" ADD CONSTRAINT "PK_UPLOAD_FILE" PRIMARY KEY (
 	"FILE_NO"
-); -- 수행함
+);
 
 ALTER TABLE "BOARD" ADD CONSTRAINT "PK_BOARD" PRIMARY KEY (
 	"BOARD_NO"
@@ -318,6 +325,11 @@ REFERENCES "COMMENT" (
 );
 
 ---------------------- CHECK -----------------------
+-- 회원 탈퇴 여부 check 제약조건 추가
+ALTER TABLE "MEMBER" ADD
+CONSTRAINT "MEMBER_DEL_CHECK"
+CHECK("MEMBER_DEL_FL" IN ('Y','N'));
+-- 수행함
 
 -- 게시글 삭제 여부
 ALTER TABLE "BOARD" ADD
