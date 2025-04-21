@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.service.annotation.PutExchange;
 
 import edu.kh.todo.model.dto.Todo;
 import edu.kh.todo.model.service.TodoService;
@@ -50,20 +54,17 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * */
 
-
-
 @Controller // 요청/응답 제어하는 역할 명시 + Bean 등록
 @RequestMapping("ajax") // 요청주소 시작이 "ajax"인 요청을 매핑
 @Slf4j // 로그 찍을 때 필요한 어노테이션
 public class AjaxController {
-	
+
 	// @Autowired
 	// - 등록된 Bean 중 같은 타입 또는 상속관계인 Bean을 찾아
 	// 해당 필드에 의존성 주입
-	
+
 	@Autowired // DI(의존성 주입)
 	private TodoService service;
-	
 
 	@GetMapping("main")
 	public String ajaxMain() {
@@ -81,7 +82,7 @@ public class AjaxController {
 
 		// 전체 할 일 개수 조회 서비스 호출 결과 반환 받기
 		int totalCount = service.getTotalCount();
-		
+
 		// 이자리에 결과 작성하기
 		return totalCount;
 
@@ -92,31 +93,64 @@ public class AjaxController {
 	public int getCompleteCount() {
 		return service.getCompleteCount();
 	}
-	
+
+	// 할 일 추가
 	@ResponseBody
 	@PostMapping("add")
 	public int addTodo(@RequestBody Todo todo) { // 요청Body에 담긴 값을 Todo DTO에 저장
 		// @RequestParam은 일반적으로 쿼리파라미터나 URL 파라미터에 사용
 		log.debug("todo : " + todo);
-		
+
 		// 할 일 추가 서비스 호출 후 응답
 		int result = service.addTodo(todo.getTodoTitle(), todo.getTodoContent());
-		
+
 		return result;
-		
+
 	}
-	
+
+	// 전체 할 일 목록 조회
 	@ResponseBody
 	@GetMapping("selectList")
 	public List<Todo> selectList() {
 		List<Todo> todoList = service.selectList();
-		
+
 		return todoList;
-		
+
 		// List(Java 전용 타입)를 반환
 		// -> JS가 인식할 수 없기 때문에 JSON으로 변환 필요!
 		// -> HttpMessageConvertor가 JSON 형태로 변환하여 반환
-		
+
+	}
+
+	// 할 일 상세 조회
+	@ResponseBody // 비동기 요청을 보낸 곳으로 데이터(반환값) 돌려보냄
+	@GetMapping("detail")
+	public Todo selectTodo(@RequestParam("todoNo") int todoNo) {
+		return service.todoDetail(todoNo);
+		// return 자료형 : Todo(dto)
+		// -> HttpMessageConvertor 가 String(JSON) 형태로 변환해서 반환
+
+	}
+
+	// 할 일 삭제 요청(DELETE)
+	@ResponseBody
+	@DeleteMapping("delete")
+	public int todoDelete(@RequestBody int todoNo) {
+		return service.todoDelete(todoNo);
+	}
+
+	// 완료 여부 변경(PUT)
+	@ResponseBody
+	@PutMapping("changeComplete")
+	public int changeComplete(@RequestBody Todo todo) {
+		return service.changeComplete(todo);
+	}
+
+	// 할 일 수정(PUT)
+	@ResponseBody
+	@PutMapping("update")
+	public int todoUpdate(@RequestBody Todo todo) {
+		return service.todoUpdate(todo);
 	}
 	
 }
