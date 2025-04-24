@@ -253,8 +253,8 @@ function execDaumPostcode() {
   // 주소 검색 버튼 클릭 시
   // 호출하는 함수 뒤에 () 호출부 붙이면 브라우저가 새로고침 될 때마다 호출이 됨
   // 클릭할 때 수행될 수 있도록 호출부 제외
-  document.querySelector("#searchAddress").addEventListener("click", execDaumPostcode);
 
 
-
-searchAddress.addEventListener("click", execDaumPostcode);
+if(searchAddress != null ) { //화면 상에 id가 searchAddress인 요소가 존재하는 경우에만
+    searchAddress.addEventListener("click", execDaumPostcode);
+}
