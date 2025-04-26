@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-								//Spring Security의 자동 설정 중 로그인 페이지 이용 안 함
+								// Spring Security의 자동 설정 중 로그인 페이지 이용 안 함
 @SpringBootApplication(exclude= {SecurityAutoConfiguration.class})
 public class BoardProjectBootApplication {
 
