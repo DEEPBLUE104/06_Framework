@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 			return null;
 		}
 
-		// 로그인 결과에서 비밀번호 제거
+		// 로그인 결과에서 비밀번호 제거.
 		loginMember.setMemberPw(null);
 
 		return loginMember;
