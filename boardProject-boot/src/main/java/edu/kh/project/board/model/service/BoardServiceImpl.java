@@ -21,4 +21,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selectBoardTypeList() {
 		return mapper.selectBoardTypeList();
 	}
+	
+	// 특정 게시판의 지정된 페이지 목록 조회 서비스
+	@Override
+	public Map<String, Object> selectBoardList(int boardCode, int cp) {
+		return null;
+	}
 }

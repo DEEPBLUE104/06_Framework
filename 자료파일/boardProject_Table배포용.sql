@@ -386,6 +386,10 @@ INSERT INTO "BOARD_TYPE" VALUES(SEQ_BOARD_CODE.NEXTVAL, '자유 게시판');
 COMMIT;
 
 SELECT * FROM "BOARD_TYPE";
+
+SELECT BOARD_CODE "boardCode", BOARD_NAME "boardName"
+FROM "BOARD_TYPE"
+ORDER BY BOARD_CODE;
 ---------------------------------------------
 /* 게시글 번호 시퀀스 생성 */
 CREATE SEQUENCE SEQ_BOARD_NO NOCACHE; 
