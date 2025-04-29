@@ -62,7 +62,7 @@ UPDATE "MEMBER" SET
 
 -- 암호화된 비밀번호(평문 : pass01!) 업데이트
 UPDATE "MEMBER" SET
-MEMBER_PW = '$2a$10$rh5AiJtXDoKYSMUt8RzeDu0Bl119vq/Rrulc3VKmAGh1WJMmjK5Eu'
+MEMBER_PW = '$2a$10$OVtGtT88VA0.lgrXwnvXnuYhIFaOKwT1QEctFA6SSgpPg9DYUrK5.'
 WHERE MEMBER_NO = 1;
 
 -- 로그인 SQL
@@ -413,7 +413,7 @@ END;
 COMMIT;
 
 
-SELECT * FROM "BOARD";
+SELECT count(*) FROM "BOARD";
 -- 4/28 수행함
 ---------------------------------------------------
 -- 부모 댓글 번호 NULL 허용
@@ -491,23 +491,23 @@ CREATE SEQUENCE SEQ_IMG_NO NOCACHE;
 
 /* BOARD_IMG 테이블에 샘플 데이터 삽입 */
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본1.jpg', 'test1.jpg', 0, 1994
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본1.jpg', 'test1.jpg', 0, 2000
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본2.jpg', 'test2.jpg', 1, 1994
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본2.jpg', 'test2.jpg', 1, 2000
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본3.jpg', 'test3.jpg', 2, 1994
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본3.jpg', 'test3.jpg', 2, 2000
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본4.jpg', 'test4.jpg', 3, 1994
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본4.jpg', 'test4.jpg', 3, 2000
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본5.jpg', 'test5.jpg', 4, 1994
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본5.jpg', 'test5.jpg', 4, 2000
 );
 
 
@@ -576,15 +576,15 @@ ORDER SIBLINGS BY COMMENT_NO
 -- 댓글 샘플데이터
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 댓글 1',
-			  DEFAULT, DEFAULT,	1994, 1, NULL);
+			  DEFAULT, DEFAULT,	2000, 1, NULL);
 			 
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 댓글 2',
-			  DEFAULT, DEFAULT,	1994, 1, NULL);
+			  DEFAULT, DEFAULT,	2000, 1, NULL);
 			 
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 댓글 3',
-			  DEFAULT, DEFAULT,	1994, 1, NULL);
+			  DEFAULT, DEFAULT,	2000, 1, NULL);
 
 SELECT * FROM "COMMENT"
 ORDER BY COMMENT_NO DESC;
@@ -592,22 +592,22 @@ ORDER BY COMMENT_NO DESC;
 -- 부모 댓글 1의 자식 댓글
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 1의 자식 1',
-			  DEFAULT, DEFAULT,	1994, 2, 2008);
+			  DEFAULT, DEFAULT,	2000, 2, 2001);
 			 
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 1의 자식 2',
-			  DEFAULT, DEFAULT,	1994, 2, 2008);
+			  DEFAULT, DEFAULT,	2000, 2, 2001);
 			 
 			 
 -- 부모 댓글 2의 자식 댓글			 
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 2의 자식 1',
-			  DEFAULT, DEFAULT,	1994, 2, 2009);
+			  DEFAULT, DEFAULT,	2000, 2, 2002);
 			 
 -- 부모 댓글 2의 자식 1의 자식 댓글			 
 INSERT INTO "COMMENT"	
 VALUES( SEQ_COMMENT_NO.NEXTVAL, '부모 2의 자식 1의 자식!!!',
-			  DEFAULT, DEFAULT,	1994, 2, 2021);
+			  DEFAULT, DEFAULT,	2000, 2, 2006);
 
 			 
 COMMIT;

@@ -40,7 +40,7 @@ public class Board {
 	 private List<BoardImg> imageList;
 
 	// 특정 게시글 작성된 댓글 목록 리스트
-	 private List<Comment> commemtList;
+	 private List<Comment> commentList;
 	
 	// 좋아요 여부 확인
 	private int likeCheck;
