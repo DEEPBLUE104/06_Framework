@@ -107,6 +107,22 @@ public class BoardController {
 		// 2) 서비스 호출
 		Board board = service.selectOne(map);
 		
+		String path = null;
+		
+		// 조회 결과가 없는 경우
+		if(board == null ) {
+			path = "redirect:/board/" +boardCode; // 목록 재요청
+			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
+			
+		} else {
+			// 조회 결과가 있는 경우
+			path = "board/boardDetail";  // boardDetail.html로 forward
+			
+			// board - 게시글 일반 내용 + imageList + commentList
+			model.addAttribute("board", board);
+			
+		}
+		
 		
 	 return "";
 	}
