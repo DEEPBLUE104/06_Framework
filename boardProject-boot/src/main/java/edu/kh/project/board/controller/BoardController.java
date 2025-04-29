@@ -1,5 +1,6 @@
 package edu.kh.project.board.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.project.board.model.dto.Board;
 import edu.kh.project.board.model.service.BoardService;
+import edu.kh.project.member.model.dto.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -64,5 +69,45 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	
+	// 상세 조회 요청 주소
+	// /board/1/1994?cp=1
+	// /board/2/1994?cp=2	
+
+	/** 게시글 상세 조회
+	 * @param boardCode : 주소에 포함된 게시판 종류 번호 (1/2/3)
+	 * @param boardNo   : 주소에 포함된 게시글 번호 (1994..)
+ 	 * 					 (boardCode, boardNo Request scope에 저장되어 있음
+ 	 * 			 		  왜? PathVariable 어노테이션 이용 시 변수값이 request scope에 저장되기 때문에)
+ 	 *
+ 	 * @param model		: 값 전달용 객체
+	 * @param loginMember : 로그인 여부와 관련없이 상세 조회할 수 있어야하므로 required = false로 함
+	 * @param ra 
+	 * @return
+	 */
+	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+}")
+	public String boardDetail(@PathVariable("boardCode") int boardCode,
+							  @PathVariable("boardNo") int boardNo,
+							  Model model,
+							  @SessionAttribute(value="loginMember", required = false) Member loginMember,
+							  RedirectAttributes ra) {
+		
+		// 게시글 상세 조회 서비스 호출
+		
+		// 1) Map으로 전달할 파라미터 묶기
+		Map<String, Integer> map = new HashMap<>();
+		map.put("boardCode", boardCode);
+		map.put("boardNo", boardNo);
+		
+		// 로그인 상태에만 memberNo 추가
+		if(loginMember != null) {
+			map.put("memberNo", loginMember.getMemberNo());
+			
+		}
+		
+		// 2) 서비스 호출
+		Board board = service.selectOne(map);
+		
+		
+	 return "";
+	}
 }
