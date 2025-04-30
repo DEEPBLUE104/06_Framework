@@ -528,6 +528,23 @@ COMMIT;
 
 SELECT * FROM "BOARD_IMG";
 
+INSERT INTO "BOARD_IMG"
+(
+ SELECT SEQ_IMG_NO.NEXTVAL, '경로1', '원본1', '변경1', 1, 1995 FROM DUAL
+ UNION 
+ SELECT SEQ_IMG_NO.NEXTVAL, '경로2', '원본2', '변경2', 2, 1995 FROM DUAL
+ UNION 
+ SELECT SEQ_IMG_NO.NEXTVAL, '경로3', '원본3', '변경3', 3, 1995 FROM DUAL
+);
+
+-- SEQ_IMG_NO 시퀀스의 다음값을 반환하는 함수 생성
+CREATE OR REPLACE FUNCTION NEXT_IMG_NO 
+
+-- 반환형 
+RETURN NUMBER
+
+-- 사용할 변수
+IS IMG_NO NUMBER;
 ----------------------------------------------------
 
 -- 게시글 상세조회 SQL 
