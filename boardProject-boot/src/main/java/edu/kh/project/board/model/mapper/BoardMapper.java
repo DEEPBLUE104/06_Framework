@@ -8,6 +8,9 @@ import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.project.board.model.dto.Board;
 
+/**
+ * 
+ */
 @Mapper
 public interface BoardMapper {
 
@@ -49,5 +52,19 @@ public interface BoardMapper {
 	 * @return
 	 */
 	int selectLikeCount(int boardNo);
+	
+	/** 조회 수 1 증가
+	 * @param boardNo
+	 * @return
+	 */
+	int updateReadCount(int boardNo);
+
+	/** 조회 수 조회
+	 * @param boardNo
+	 * @return
+	 */
+	int selectReadCount(int boardNo);
+	
+	
 
 }
