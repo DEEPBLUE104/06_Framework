@@ -20,8 +20,7 @@
 	
 	-->
 	
-	<insert id="boardInsert" useGeneratedKeys="true" parameterType="Board">"
-	
+	<insert id="boardInsert" useGeneratedKeys="true" parameterType="Board">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo"> 
 			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL		
 		</selectKey>
@@ -33,7 +32,6 @@
 				DEFAULT, DEFAULT, DEFAULT, DEFAULT,
 				#{boardCode},
 				#{memberNo})
-		
 	</insert>
 	
 	<!-- 
@@ -59,13 +57,13 @@
 		INSERT INTO "BOARD_IMG"
 		
 		<foreach collection="list" item="img" 
-		open="(" close=")" separator="UNION" >
-		 SELECT NEXT_IMG_NO(), 
-		 #{img.imgPath}, 
-		 #{img.imgOriginalName}, 
-		 #{img.imgRename}, 
-		 #{img.imgOrder}, 
-		 #{img.boardNo} 
+		open="(" close=")" separator=" UNION ">
+		 SELECT NEXT_IMG_NO(),
+		 #{img.imgPath},
+		 #{img.imgOriginalName},
+		 #{img.imgRename},
+		 #{img.imgOrder},
+		 #{img.boardNo}
 		 FROM DUAL		
 		</foreach>
 	</insert>

@@ -26,10 +26,10 @@ public class EditBoardServiceImpl implements EditBoardService {
 	@Autowired
 	private EditBoardMapper mapper;
 
-	@Value("my.board.web-path")
+	@Value("${my.board.web-path}")
 	private String webPath; // /images/board/
 
-	@Value("my.board.folder-path")
+	@Value("${my.board.folder-path}")
 	private String folderPath; // C:/uploadFiles/board/
 
 	// 게시글 작성
