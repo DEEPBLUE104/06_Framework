@@ -119,10 +119,12 @@ public class BoardServiceImpl implements BoardService {
 			
 		}
 		
+		// 3. 다시 해당 게시글의 좋아요 개수를 조회해서 반환
+		if(result > 0) {
+			return mapper.selectLikeCount(map.get("boardNo"));
+		}
 		
-		
-		
-		return 0;
+		return -1; // 좋아요 처리 실패
 	}
 	
 

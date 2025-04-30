@@ -14,8 +14,8 @@
 // likeCheck -> 현재 이 게시글의 likeCheck 값 
 
 // 1. #boardLike 가 클릭 되었을 때
-document.querySelector("#boardLike").addEventListener("click", () => {
-
+document.querySelector("#boardLike").addEventListener("click", (e) => {
+    
     // 2. 로그인 상태가 아닌 경우 동작 X
     if( loginMemberNo == null ) {
         alert("로그인 후 이용해주세요!");
@@ -38,6 +38,21 @@ document.querySelector("#boardLike").addEventListener("click", () => {
     .then(resp => resp.text())
     .then(count => {
       
+        if( count == -1 ) {
+            console.log("좋아요 처리 실패");
+            return;
+        }
+
+        // 5. likeCheck 값 0 <-> 1 
+        // -> 클릭 될 때마다 INSERT / DELETE 동작을 번갈아 가면서 하게끔.
+        likeCheck = likeCheck == 0 ? 1 : 0;
+        
+        // 6. 하트를 채웠다/비웠다 바꾸기
+        e.target.classList.toggle("fa-regular");  // 빈 하트
+        e.target.classList.toggle("fa-solid");    // 채워진 하트
+        
+        // 게시글 좋아요 수 수정
+        e.target.nextElementSibling.innerText = count;
 
     });
 
