@@ -62,7 +62,7 @@ UPDATE "MEMBER" SET
 
 -- 암호화된 비밀번호(평문 : pass01!) 업데이트
 UPDATE "MEMBER" SET
-MEMBER_PW = '0a842e56-245f-47bd-b307-4b0a257cd609'
+MEMBER_PW = '$2a$10$7AWc20n0L80DrDFhKIj1mONcoe3h9jn12Xx7xLLytK.fgmn8SSkLa'
 WHERE MEMBER_NO = 1;
 
 -- 로그인 SQL
