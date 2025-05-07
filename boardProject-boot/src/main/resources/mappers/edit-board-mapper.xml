@@ -80,8 +80,8 @@
 
 	<!-- 게시글 이미지 삭제 -->
 	<delete id="deleteImage">
-		DELETE FORM "BOARD_IMG"
-		WHRER BOARD_NO = #{boardNo}
+		DELETE FROM "BOARD_IMG"
+		WHERE BOARD_NO = #{boardNo}
 		AND IMG_ORDER IN(${deleteOrderList})  <!-- IN (1,2,3)으로 들어가야 함. ${} -->
 	</delete>
 	

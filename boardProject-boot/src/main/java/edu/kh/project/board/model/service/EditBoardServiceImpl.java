@@ -224,7 +224,7 @@ public class EditBoardServiceImpl implements EditBoardService {
 			img.getUploadFile().transferTo(new File(folderPath + img.getImgRename()));
 		}
 		
-		return 0;
+		return result;
 	}
 
 }
