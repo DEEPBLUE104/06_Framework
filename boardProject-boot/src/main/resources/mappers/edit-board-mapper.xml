@@ -68,5 +68,41 @@
 		</foreach>
 	</insert>
 
+	<!-- 게시글 부분 수정 -->
+	<update id="boardUpdate">
+		UPDATE "BOARD" SET
+		BOARD_TITLE = #{boardTitle},
+		BOARD_CONTENT = #{boardContent}
+		WHERE BOARD_CODE = #{boardCode}
+		AND BOARD_NO = #{boardNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+
+	<!-- 게시글 이미지 삭제 -->
+	<delete id="deleteImage">
+		DELETE FORM "BOARD_IMG"
+		WHRER BOARD_NO = #{boardNo}
+		AND IMG_ORDER IN(${deleteOrderList})  <!-- IN (1,2,3)으로 들어가야 함. ${} -->
+	</delete>
+	
+	<!-- 게시글 이미지 1행 수정 -->
+	<update id="updateImage">
+		UPDATE "BOARD_IMG" SET
+		IMG_ORIGINAL_NAME = #{imgOriginalName},
+		IMG_RENAME = #{imgRename}
+		WHERE BOARD_NO = #{boardNo}
+		AND IMG_ORDER = #{imgOrder}		
+	</update>
+	
+	<!-- 게시글 이미지 1행 삽입 -->
+	<insert id="insertImage">
+		INSERT INTO "BOARD_IMG"
+		VALUES(NEXT_IMG_NO(),
+				#{imgPath},
+				#{imgOriginalName},
+				#{imgRename},
+				#{imgOrder},
+				#{boardNo})
+	</insert>
 
 </mapper>
