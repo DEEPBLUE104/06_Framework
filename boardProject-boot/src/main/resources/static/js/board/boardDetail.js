@@ -74,7 +74,79 @@ if(updateBtn != null){ // 수정 버튼 존재 시
                          + location.search; // ?cp=1 
     
     });
-
 }
 
+// ----------------- 게시글 삭제 (GET) -----------------------
+const deleteBtn = document.querySelector("#deleteBtn");
 
+if(deleteBtn != null) {
+    deleteBtn.addEventListener("click", () => {
+        if ( !confirm("삭제 하시겠습니까?" )) {
+            alert("취소됨");
+            return;
+        }
+
+        const url = location.pathname.replace('board','editBoard') + "/delete" 
+        // /board/1/2008?cp=1
+        // 목표 : /editBoard/1/2008/delete?cp=1
+
+        const queryString = location.search; // ?cp=1
+        location.href = url + queryString;
+         // 목표 : /editBoard/1/2008/delete?cp=1
+
+    });
+}
+
+// ----------------- 게시글 삭제 (POST) -----------------------
+
+const deleteBtn2 = document.querySelector("#deleteBtn2");
+
+if(deleteBtn2 != null) {
+    deleteBtn2.addEventListener("click", () => {
+
+        if(!confirm("삭제 하시겠습니까?")){
+            alert("취소됨");
+            return;
+        }
+        
+        const url = location.pathname.replace("board", "editBoard") + "/delete"
+        // 목표 : /editBoard/1/2008/delete?cp=1
+
+        // JS에서 동기식으로 Post 요청 보내는 법
+        // -> form 태그 생성
+        const form = document.createElement("form");
+        form.action = url;
+        form.method = "POST";
+
+        // cp 값을 저장할 input 생성
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "cp";
+
+        // 쿼리스트링에서 원하는 파라미터 얻어오기
+        const params = new URLSearchParams(location.search);
+        // ?cp = 1
+        const cp = params.get("cp");
+        input.value = cp;
+
+        form.append(input);
+
+        // 화면에 form 탸그를 추가한 후 제출하기
+        document.querySelector("body").append(form);
+        form.submit();
+ 
+    });
+}
+
+// ----------------- 목록으로 ------------------------
+const goToListBtn = document.querySelector("#goToListBtn");
+
+    if(goToListBtn != null) {
+        goToListBtn.addEventListener("click", () => {
+            
+            const params = new URLSearchParams(location.search);
+            const boardNo = params.get("")
+        
+            location.href = "/board/" + boardNo;
+        });
+    }
