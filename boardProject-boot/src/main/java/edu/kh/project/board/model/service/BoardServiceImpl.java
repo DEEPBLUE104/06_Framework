@@ -142,5 +142,19 @@ public class BoardServiceImpl implements BoardService {
 		return -1;
 	}
 	
+	// 검색 서비스 (게시글 목록 조회 참고)
+ 	@Override
+	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
+		// paramMap (key, query, boardCode)
+ 		
+ 		// 1. 지정된 게시판(boardCode)에서
+ 		// 검색 조건에 맞으면서
+ 		// 삭제되지 않은 게시글 수를 조회
+ 		
+ 		int listCount = mapper.getSearchCount(paramMap);
+		
+		
+		return null;
+	}
 
 }
