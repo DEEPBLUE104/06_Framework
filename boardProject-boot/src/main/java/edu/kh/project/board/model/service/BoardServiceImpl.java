@@ -153,7 +153,25 @@ public class BoardServiceImpl implements BoardService {
  		
  		int listCount = mapper.getSearchCount(paramMap);
 		
+ 		// 2. 1번의 결과 + cp를 이용해서
+ 		// Pagination 객체를 생성
+ 		Pagination pagination = new Pagination(cp, listCount);
+ 		
+ 		// 3. 특정 게시판의 지정된 페이지 목록 조회
+ 		int limit = pagination.getLimit(); // 10개씩 조회
+		int offset = (cp - 1) * limit;
+
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
+ 		// mapper 메서드 호출 코드 수행
+		// -> Mapper 메서드 호출 시 전달할 수 있는 매개변수 1개
+		// -> 2개를 전달할 수 있는 경우가 있음
+		// RowBounds 를 이용할 때
+		// 1번째 : sql에 전달할 파라미터
+		// 2번째 : RowBounds 객체
+		List<Board> boardList = mapper.selectSearchList(paramMap, rowBounds);
+		
+ 		
 		return null;
 	}
 
