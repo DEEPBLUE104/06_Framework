@@ -47,7 +47,7 @@ public class LoginFilter implements Filter{
 		// 그때는 필터링 하지 않도록 함
 		
 		if(path.startsWith("/myPage/profile/")) {
-			
+			// 필터를 통과하도록 함
 			chain.doFilter(request, response);
 			return; // 필터 통과 후 아래 코드 수행하지 않도록 return
 		}
