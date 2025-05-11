@@ -53,7 +53,7 @@ public class LoginFilter implements Filter{
 		}
 		
 		
-		// **************************************************
+		// *******************************************
 		
 		// Session 객체 얻어오기
 		HttpSession session = req.getSession();
