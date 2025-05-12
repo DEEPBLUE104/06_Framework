@@ -1,5 +1,6 @@
 package edu.kh.project.common.scheduling;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 @Component // Bean 등록
 public class ImageDeleteScheduling {
 
+	@Scheduled
 	public void scheduling() {
+		log.info("스케줄러 동작");
+		
 		
 	}
 	
@@ -35,10 +39,10 @@ public class ImageDeleteScheduling {
 *  
 *  
 * * cron 속성 : UNIX계열 잡 스케쥴러 표현식으로 작성 - cron="초 분 시 일 월 요일 [년도]" - 요일 : 1(SUN) ~ 7(SAT)
-* ex) 2019년 9월 16일 월요일 10시 30분 20초 cron="20 30 10 16 9 2 " // 연도 생략 가능
+* ex) 2025년 9월 16일 월요일 10시 30분 20초 cron="20 30 10 16 9 2 " // 연도 생략 가능
 *
 *
-*  @Scheduled(cron = "* * * * * 30")
+*  @Scheduled(cron = "30 * * * * *")
 *  @Scheduled(cron = "0 0 12 * * *")
 *
 *
