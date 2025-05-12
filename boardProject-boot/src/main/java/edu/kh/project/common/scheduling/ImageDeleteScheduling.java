@@ -1,5 +1,6 @@
 package edu.kh.project.common.scheduling;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,10 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ImageDeleteScheduling {
 
 	// 회원 프로필 이미지 파일 저장 경로
-	private String profileFolderPath;
+	@Value("my.profile.folder-path")
+	private String profileFolderPath; //C:/uploadFiles/profile/
 	
 	// 게시판 이미지 파일 저장 경로
-	private String boardFolderPath;
+	@Value("my.board.folder-path")
+	private String boardFolderPath;	//C:/uploadFiles/board/
 	
 	@Scheduled(cron = "0,30 * * * * *")
 	public void scheduling() {
