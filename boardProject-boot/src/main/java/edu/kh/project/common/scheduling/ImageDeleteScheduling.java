@@ -1,5 +1,6 @@
 package edu.kh.project.common.scheduling;
 
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -7,11 +8,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component // Bean 등록
+@PropertySource("classpath:/config.properties")
 public class ImageDeleteScheduling {
 
-	@Scheduled
+	// 회원 프로필 이미지 파일 저장 경로
+	private String profileFolderPath;
+	
+	// 게시판 이미지 파일 저장 경로
+	private String boardFolderPath;
+	
+	@Scheduled(cron = "0,30 * * * * *")
 	public void scheduling() {
 		log.info("스케줄러 동작");
+		
+		// DB, 서버 파일 목록 비교 후
+		// DB에 없는 서버 이미지 파일 삭제 동작
+		
+		// 1. 서버 파일 목록 조회하기
 		
 		
 	}
@@ -42,8 +55,12 @@ public class ImageDeleteScheduling {
 * ex) 2025년 9월 16일 월요일 10시 30분 20초 cron="20 30 10 16 9 2 " // 연도 생략 가능
 *
 *
-*  @Scheduled(cron = "30 * * * * *")
-*  @Scheduled(cron = "0 0 12 * * *")
+*  @Scheduled(cron = "30 * * * * *")  // 30초마다 스케줄을 작동시키겠다.
+*  @Scheduled(cron = "0 0 12 * * *")  // 정오(12시)마다 스케줄을 작동시키겠다.
+*  @Scheduled(cron = "0,30 * * * * *")  // 시계 초의 단위기 0, 30인 경우 스케줄을 작동시키겠다.
+*  @Scheduled(cron = "0 0 0 * * *")  // 자정마다
+*  @Scheduled(cron = "0 0 * * * *")  // 매시간 정시마다
+*  @Scheduled(cron = "0 0 0 1 * *")  // 매달 1일마다
 *
 *
 * - 특수문자
