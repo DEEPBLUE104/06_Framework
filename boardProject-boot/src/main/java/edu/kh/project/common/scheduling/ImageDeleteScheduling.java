@@ -1,7 +1,18 @@
 package edu.kh.project.common.scheduling;
 
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Component // Bean 등록
 public class ImageDeleteScheduling {
 
+	public void scheduling() {
+		
+	}
+	
+	
 }
 
 /*
