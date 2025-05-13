@@ -25,7 +25,7 @@ public class ImageDeleteScheduling {
 	@Value("${my.profile.folder-path}")
 	private String profileFolderPath; //C:/uploadFiles/profile/
 	
-	// 게시판 이미지 파일 저장 경로
+	// 게시판 이미지 파일 저장 경로 
 	@Value("${my.board.folder-path}")
 	private String boardFolderPath;	//C:/uploadFiles/board/
 	
@@ -94,7 +94,8 @@ public class ImageDeleteScheduling {
 
 /*
 * @Scheduled
-*
+* ---------------------------------
+* 
 * * Spring에서 제공하는 스케줄러 : 시간에 따른 특정 작업(Job)의 순서를 지정하는 방법.
 *
 * 설정 방법
