@@ -418,7 +418,7 @@ BEGIN
 					 SEQ_BOARD_NO.CURRVAL || '번째 게시글 내용 입니다',
 					 DEFAULT, DEFAULT, DEFAULT, DEFAULT,
 					 CEIL( DBMS_RANDOM.VALUE(0,3) ),
-					 2 -- 회원번호
+					 1 -- 회원번호
 		);
 		
 	END LOOP;
