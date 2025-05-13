@@ -94,7 +94,6 @@ public class ImageDeleteScheduling {
 
 /*
 * @Scheduled
-* ---------------------------------
 * 
 * * Spring에서 제공하는 스케줄러 : 시간에 따른 특정 작업(Job)의 순서를 지정하는 방법.
 *
