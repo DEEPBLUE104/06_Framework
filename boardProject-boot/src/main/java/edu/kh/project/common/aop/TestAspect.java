@@ -36,7 +36,11 @@ public class TestAspect {
 	// execution : 메서드 실행 지점을 가리키는 키워드
 	// * : 모든 리턴 타입을 나타냄
 	// edu.kh.project : 패키지명을 나타냄
-	// .. : 
+	// .. : 0개 이상의 하위 패키지 나타냄
+	// *Controller* :이름에 "Controller" 라는 문자열을 포함하는 모든 클래스를 대상으로 함
+	// .* : 모든 메서드를 나타냄
+	// (..) : 0개 이상의 파라미터를 나타냄
+	
 	
 	@Before("execution(* edu.kh.project..*Controller*.*(..))")
 	 public void testAdvice() {
