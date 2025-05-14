@@ -1,5 +1,7 @@
 package edu.kh.project.common.aop;
 
+import java.util.Arrays;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -78,8 +80,32 @@ public class LoggingAspect {
 		// Throwable - 예외처리의 최상위 클래스
 		// Throwable 주요 자식으로 Exception(예외) - 개발자가 처리할 수 있는 문제
 		// 						   Error (오류) - 시스템 레벨의 심각한 문제
+		
+		// @Before
+		// AOP가 적용된 클래스 이름 얻어오기
+		String className = pjp.getTarget().getClass().getSimpleName();
+		// ex) MainController, BoardController 
+		
+		// 실행된 컨트롤러 메서드 이름을 얻어오기
+		String methodName = pjp.getSignature().getName(); // ex) mainPage(), login()
+		
+		log.info("---------------{}.{} 수행완료---------------------", className, methodName);
+		
+		// 파라미터를 로그로 출력
+		log.info("Parameter : {}", Arrays.toString(pjp.getArgs()));
+		
+		// 서비스 코드 실행 시 시간 기록
+		long startMs = System.currentTimeMillis(); 
+		
+		Object obj = pjp.proceed(); // 전/후를 나누는 기준점
+		
+		// @After
+		
+		long endMs = System.currentTimeMillis();
 
-		Object obj = pjp.proceed();
+		log.info("Running Time : {}ms", endMs - startMs);
+		
+		log.info("=============================");
 		
 		return obj;
 		
