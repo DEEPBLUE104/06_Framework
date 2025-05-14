@@ -1,5 +1,7 @@
 package edu.kh.project.common.aop;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -46,5 +48,21 @@ public class TestAspect {
 	 public void testAdvice() {
 		 log.info("-----------testAdvice() 수행됨-------------------");
 	 }
+	
+	@After("execution(* edu.kh.project..*Controller*.*(..))")
+	public void controllerEnd(JoinPoint jp) {
+							// JoinPoint : AOP 기능이 적용된 대상
+		
+		// AOP가 적용된 클래스 이름 얻어오기
+		String className = jp.getTarget().getClass().getSimpleName();
+		// ex) MainController, BoardController 
+		
+		// 실행된 컨트롤러 메서드 이름을 얻어오기
+		String methodName = jp.getSignature().getName(); // ex) mainPage(), login()
+		
+		log.info("---------------{}.{} 수행완료---------------------");
+		
+
+	}
 	
 }
