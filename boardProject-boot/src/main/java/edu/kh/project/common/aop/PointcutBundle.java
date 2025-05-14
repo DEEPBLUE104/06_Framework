@@ -20,4 +20,5 @@ public class PointcutBundle {
 	@Pointcut("execution(* edu.kh.project..*ServiceImpl*.*(..))")
 	public void serviceImplPointcut() {}
 	
+	
 }

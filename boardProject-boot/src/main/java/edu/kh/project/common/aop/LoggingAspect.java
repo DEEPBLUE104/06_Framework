@@ -1,12 +1,14 @@
 package edu.kh.project.common.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
+import org.springframework.web.multipart.MultipartResolver;
 import edu.kh.project.member.model.dto.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Slf4j
 public class LoggingAspect {
+
+    private final MultipartResolver multipartResolver;
+
+    LoggingAspect(MultipartResolver multipartResolver) {
+        this.multipartResolver = multipartResolver;
+    }
 	
 	/** 컨트롤러 수행 전 로그 출력(클래스/메서드/ip)
 	 * @param jp
@@ -53,6 +61,32 @@ public class LoggingAspect {
 		log.info(sb.toString());
 
 	}
+	
+	// ProceedingJoinPoint
+	// - JoinPoint 상속한 자식 객체
+	// - @Around 에서 사용 가능
+	// proceed() 메서드 제공
+	// -> proceed() 메서드 호출 전/후로
+	//			Before/After 구분되어짐
+	
+	// * 주의할 점 *
+	// 1) Around 사용 시 반환형 Object 여야함
+	// 2) @Around 메서드 종료 시 proceed() 반환값을 return 해야한다.
+	
+	@Around("PointcutBundle.serviceImplPointcut()")
+	public Object aroundServiceImpl(ProceedingJoinPoint pjp) throws Throwable {
+		// Throwable - 예외처리의 최상위 클래스
+		// Throwable 주요 자식으로 Exception(예외) - 개발자가 처리할 수 있는 문제
+		// 						   Error (오류) - 시스템 레벨의 심각한 문제
+
+		Object obj = pjp.proceed();
+		
+		return obj;
+		
+		
+	}
+	
+	
 	
 	/**
 	 * 접속자 IP 얻어오는 메서드
