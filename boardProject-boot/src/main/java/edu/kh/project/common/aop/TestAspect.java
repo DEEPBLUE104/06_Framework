@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * */
 
 @Component // Bean 등록
-@Aspect // 공통 관심사가 작성된 클래스임을 명시 (AOP 동작용 클래스)
+// @Aspect // 공통 관심사가 작성된 클래스임을 명시 (AOP 동작용 클래스)
 @Slf4j
 public class TestAspect {
 
@@ -60,7 +60,7 @@ public class TestAspect {
 		// 실행된 컨트롤러 메서드 이름을 얻어오기
 		String methodName = jp.getSignature().getName(); // ex) mainPage(), login()
 		
-		log.info("---------------{}.{} 수행완료---------------------");
+		log.info("---------------{}.{} 수행완료---------------------", className, methodName);
 		
 
 	}
