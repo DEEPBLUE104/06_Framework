@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * */
 
 @Component // Bean 등록
-// @Aspect // 공통 관심사가 작성된 클래스임을 명시 (AOP 동작용 클래스)
+//@Aspect // 공통 관심사가 작성된 클래스임을 명시 (AOP 동작용 클래스)
 @Slf4j
 public class TestAspect {
 
