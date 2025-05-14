@@ -4,7 +4,10 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import edu.kh.project.member.model.dto.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +21,37 @@ public class LoggingAspect {
 	 */
 	@Before("PointcutBundle.controllerPointcut()")
 	public void beforeController(JoinPoint jp) {
+		
+		// 클래스명 얻어오기
+		String className = jp.getTarget().getClass().getSimpleName();
+		
+		// 메서드명 얻어오기
+		String methodName = jp.getSignature().getName();
+		
+		// 요청한 클라이언트의 HttpServletRequest 객체 얻어오기
+		HttpServletRequest req =
+		((ServletRequestAttributes)RequestContextHolder
+				.currentRequestAttributes()).getRequest();
+		
+		// 클라이언트 ip 얻어오기
+		String ip = getRemoteAddr(req);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(String.format("[%s.%s] 요청 / ip : %s",className,methodName,ip));
+		// [MainController.mainPage] 요청 / ip : 159.30.23.19
+		
+		// 로그인 상태인 경우
+		if(req.getSession().getAttribute("loginMember") != null ) {
+			
+			String memberEmail = ((Member)req.getSession().getAttribute("loginMember"))
+								  .getMemberEmail();
+			
+			sb.append(String.format(",요청 회원 : %s", memberEmail));
+		}
+		
+		log.info(sb.toString());
+
 	}
 	
 	/**
