@@ -177,7 +177,7 @@ public class MemberController {
 		return "redirect:" + path;
 		// 성공 -> redirect:/
 		// 실패 -> redirect:signup (상대 경로)
-		//	 	현재 주소 /member/signup (GET 방식 요청)
+		//	 	   현재 주소 /member/signup (GET 방식 요청)
 	
 	}
 }
