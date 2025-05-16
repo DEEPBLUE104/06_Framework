@@ -1,6 +1,7 @@
 package edu.kh.project.websocket.handler;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component // Bean 등록
-public class TestWebSocketHandler {
+public class TestWebSocketHandler extends TextWebSocketHandler{
 
 }
 
