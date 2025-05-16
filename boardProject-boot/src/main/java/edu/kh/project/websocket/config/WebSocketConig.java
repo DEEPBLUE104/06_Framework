@@ -6,6 +6,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import edu.kh.project.websocket.handler.ChattingWebsocketHandler;
 import edu.kh.project.websocket.handler.TestWebSocketHandler;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,9 @@ public class WebSocketConig implements WebSocketConfigurer{
 	
 	// Bean으로 등록된 TestWebSocketHandler 의존성 주입 
 	private final TestWebSocketHandler testWebSocketHandler;
+	
+	// 채팅관련 웹소켓 처리 동작이 작성된 객체 의존성 주입 
+	private final ChattingWebsocketHandler chattingWebsocketHandler;
 	
 	// 웹소켓 핸들러를 등록하는 메서드	
 	@Override
@@ -36,7 +40,17 @@ public class WebSocketConig implements WebSocketConfigurer{
 		// 웹소켓 요청이 허용되는 ip/도메인 지정
 		.withSockJS();	// SockJS 지원
 		
-	
+		// ----------------------------------------------
+		
+		registry
+		.addHandler(chattingWebsocketHandler, "/chattingSock")
+		.addInterceptors(handshakeInterceptor)
+		.setAllowedOriginPatterns("http://localhost/",
+								  "http://127.0.0.1", 
+								  "http://192.168.50.216/")
+		
+		.withSockJS();
+		
 	
 	}
 
