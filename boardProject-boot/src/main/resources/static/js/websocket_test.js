@@ -23,5 +23,15 @@ const sendMessageFn = (name, str) => {
 
 }
 
-// 4. 
+// 4. 서버로부터 현재 클라이언트에게
+// 웹소켓을 이용한 메세지가 전달된 경우
+testSock.addEventListener("message", e => {
+
+    // e.data : 서버로부터 전달받은 message
+    // JSON -> JS Object 형태로 변환
+    const msg = JSON.parse(e.data);
+    console.log(`${msg.name} : ${msg.str}`);
+
+
+});
 
