@@ -68,7 +68,7 @@ public class LoggingAspect {
 	
 	// * 주의할 점 *
 	// 1) @Around 사용 시 반환형 Object 여야함
-	// 2) @Around 메서드 종료 시 proceed() 반환값을 return 해야한다
+	// 2) @Around 메서드 종료 시 proceed() 반환값을 return 해야한다.
 	
 	@Around("PointcutBundle.serviceImplPointcut()")
 	public Object aroundServiceImpl(ProceedingJoinPoint pjp) throws Throwable{
