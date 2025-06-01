@@ -28,4 +28,5 @@ public class Member {
 	private String memberDelFl;			// 회원 탈퇴여부 (Y/N)
 	private String authority;			// 권한(1: 일반 사용자, 2: 관리자)
 
+	
 }
