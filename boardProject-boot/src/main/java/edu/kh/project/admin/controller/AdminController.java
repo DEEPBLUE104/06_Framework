@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -85,6 +86,7 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.OK).body(memberList);
 			
 		}catch(Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
@@ -232,6 +234,55 @@ public class AdminController {
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("삭제된 게시글 복구 중 문제 발생 : " + e.getMessage());
+		}
+	}
+	
+	/** 관리자 계정 발급
+	 * @param member
+	 * @return
+	 */
+	@PostMapping("createAdminAccount")
+	public ResponseEntity<String> createAdminAccount(@RequestBody Member member) {
+		try {
+			
+			// 1. 기존에 있는 이메일인지 검사
+			int checkEmail = service.checkEmail(member.getMemberEmail());
+			
+			// 2. 있으면 발급 안함
+			if(checkEmail > 0) {
+				// HttpStatus.CONFLICT (409) : 요청이 서버의 현재 상태와 충돌할 때 사용
+				// == 이미 존재하는 리소스(email) 때문에 새로운 리소스를 만들 수 없다.
+				return ResponseEntity.status(HttpStatus.CONFLICT)
+					   .body("이미 사용중인 이메일 입니다.");
+			}
+			
+			// 3. 없으면 새로 발급 
+			String accountPw = service.createAdminAccount(member);
+			
+			// HttpStatus.OK (200) : 요청이 정상적으로 처리되었으나 기존 리소스에 대한 단순 처리
+			// HttpStatus.CREATED (201) : 자원이 성공적으로 생성되었음을 나타냄
+			return ResponseEntity.status(HttpStatus.CREATED)
+				   .body(accountPw);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("관리자 계정 생성 중 문제 발생(서버 문의 바람)");
+		}
+	}
+	
+	@GetMapping("selectAdminAccount")
+	public ResponseEntity<Object> selectAdminAccount() {
+		// 성공식 List<Board> 반환, 실패 시 String 반환 -> 둘다 받아줄 수 있는 Object 사용
+		try {
+			
+			List<Member> selectAdminList = service.selectAdminAccount();
+			
+			return ResponseEntity.status(HttpStatus.OK).body(selectAdminList);
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("관리자 목록 조회 중 문제 발생 :" + e.getMessage());
 		}
 	}
 	

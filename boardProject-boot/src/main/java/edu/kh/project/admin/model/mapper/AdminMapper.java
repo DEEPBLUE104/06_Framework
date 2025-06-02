@@ -53,6 +53,26 @@ public interface AdminMapper {
 	int restoreMember(int memberNo);
 	
 	int restoreBoard(int boardNo);
+
+
+	/** 관리자 이메일 중복 검사
+	 * @param memberEmail
+	 * @return
+	 */
+	int checkEmail(String memberEmail);
+
+
+	/** 관리자 비밀번호
+	 * @param member
+	 * @return
+	 */
+	int createAdminAccount(Member member);
+
+
+	/** 관리자 계좌
+	 * @return
+	 */
+	List<Member> selectAdminAccount();
 	
 
 }
