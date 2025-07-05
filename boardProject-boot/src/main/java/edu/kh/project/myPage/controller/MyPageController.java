@@ -29,6 +29,7 @@ import oracle.jdbc.clio.annotations.Debug;
  * 
  * @SessionAttribute 의 역할 (매개변수에 쓰는 것)
  * - Session에 존재하는 값을 key로 얻어오는 역할
+ * 
  * */
 
 @SessionAttributes({ "loginMember" })
