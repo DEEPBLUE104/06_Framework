@@ -1,14 +1,13 @@
-package edu.kh.todo;
+package edu.kh.myapp;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TodoListApplication {
+public class MyAppServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodoListApplication.class, args);
+		SpringApplication.run(MyAppServerApplication.class, args);
 	}
 
 }

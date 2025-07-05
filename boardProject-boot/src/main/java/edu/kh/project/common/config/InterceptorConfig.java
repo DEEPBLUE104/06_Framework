@@ -32,5 +32,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
 							 "/js/**", 
 							 "/images/**", 
 							 "/favicon.ico"); // 가로채지 않을 주소 지정 (정적 리소스 제외)
+	
+	// 스코프 세션까지는 자동 탐색
+	// 어플리케이션 스코프는 앞에 application.을 붙여야 접근 가능
+		
 	}
 }
